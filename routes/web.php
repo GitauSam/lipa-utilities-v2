@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Utility\UtilityController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function() {
+
+    // Utility routes
+    Route::resource('utility', UtilityController::class);
+
+    // Dashboard
+    Route::get('/dashboard', function() {
+            return view('dashboard');
+    })->name('dashboard');
+
+});
