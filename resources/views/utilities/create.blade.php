@@ -29,7 +29,7 @@
             @endif
             <div class="cards">
                 <div class="card">
-                    <form class="w-full" action="{{ route('utility.store') }}" method="POST">
+                    <form class="w-full" action="{{ route('admin.utility.store') }}" method="POST">
                         @csrf
                         <div class="status form-input">
                             <label class="sm:mr-4 text-lg font-semibold">Name</label>

@@ -1,3 +1,4 @@
+{{-- dd('here') --}}
 <x-app-beta>
     <x-slot name="links">
         <div class="link">

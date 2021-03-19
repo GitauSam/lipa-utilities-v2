@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Utility\UserUtilityController;
 use App\Http\Controllers\Utility\UtilityController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +23,19 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->group(function() {
 
     // Utility routes
-    Route::resource('utility', UtilityController::class);
+    Route::resource('utility', UserUtilityController::class);
+
+    // Admin routes
+    Route::group(['middleware' => ['role:super-admin|moderator']], function() {
+        
+        // User Utility routes
+        Route::prefix('admin')->group(function() {
+                Route::name('admin.')->group(function() {
+                        Route::resource('utility', UtilityController::class);
+                });
+        });
+        
+    });
 
     // Dashboard
     Route::get('/dashboard', function() {

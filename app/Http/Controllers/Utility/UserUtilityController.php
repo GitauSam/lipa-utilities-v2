@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers\Utility;
 
+use App\Exceptions\Utility\UserUtilityAlreadyExistsException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Utility\CreateUtilityRequest;
+use App\Http\Requests\Utility\CreateUserUtilityRequest;
 use App\Models\TransactionLog\TransactionLog;
 use App\Modules\Utility\UtilityActivator;
-use App\Modules\Utility\UtilityPaymentMethodActivator;
 use Illuminate\Http\Request;
 
-class UtilityController extends Controller
+class UserUtilityController extends Controller
 {
 
     public function __construct()
     {
         
         $this->activator = new UtilityActivator();
-        $this->utilityPaymentMethodActivator = new UtilityPaymentMethodActivator();
 
     }
 
@@ -38,7 +37,17 @@ class UtilityController extends Controller
     public function create()
     {
 
-       return view('utilities.create');
+        $transactionLog = new TransactionLog();
+
+        $transactionLog->event = "create-user-utility-fetch-all-active-utilities-process";
+        $transactionLog->transaction_response = "Fetch all active utilities process started.";
+        $transactionLog->save();
+
+        $utilities = $this->activator
+                        ->getAllActiveUtilities($transactionLog)
+                        ->get();
+
+        return view('utilities.create-user-utility', ['utilities' => $utilities]);
 
     }
 
@@ -48,52 +57,56 @@ class UtilityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateUtilityRequest $request)
+    public function store(CreateUserUtilityRequest $request)
     {
+        
         $validated = $request->validated();
 
         $transactionLog = new TransactionLog();
 
-        if (in_array('M-Pesa', $request['utility_payment_methods']))
+        $transactionLog->event = "create user utility process";
+        $transactionLog->transaction_response = "Create user utility process started.";
+        $transactionLog->save();
+
+        $utility = $this->activator->getUtility($request->user_utility, $transactionLog);
+
+        if ($utility->utility_name == 'Electricity')
         {
-            if ($request['paybill_number'] == null)
+            if ($request['kp_meter_number'] == null)
             {
-                return redirect()->back()->withErrors('Paybill number is required');
+
+                $transactionLog->transaction_response .=  " Kenya power meter number is missing.";
+                $transactionLog->transaction_status = 20;
+                $transactionLog->save();
+
+                return redirect()->back()->withErrors('Meter number is required');
             }
         }
 
-        $transactionLog->event = "admin create utility process";
-        $transactionLog->transaction_response = "Admin create utility process started.";
-        $transactionLog->save();
-
-        $utility = $this->activator->saveUtility($validated, $transactionLog);
-
-        foreach($request['utility_payment_methods'] as $name) 
+        try 
         {
-            if ($name == 'M-Pesa')
-            {
-                $this
-                    ->utilityPaymentMethodActivator
-                    ->saveUtilityPaymentMethod($utility, $name, $request['paybill_number'], $transactionLog);
-            } else
-            {
-                $this
-                    ->utilityPaymentMethodActivator
-                    ->saveUtilityPaymentMethod($utility, $name, null, $transactionLog);
-            }
+
+            $this->activator->saveUserUtility($request->input(), $transactionLog);
+
+        } catch (UserUtilityAlreadyExistsException $e)
+        {
+
+            return redirect()->back()->withErrors('Utility already exists');
+            
         }
 
         if ($transactionLog->transaction_status == '30')
         {
             $status = "success_notif";
-            $message = "Utility: " . $utility->utility_name . " created successfully.";
+            $message = "Utility created successfully.";
         } else
         {
             $status = "failure_notif";
-            $message = "Could not create utility: " . $validated['utility_name'] . ".";
+            $message = "Could not create utility.";
         }
 
         return redirect()->route('utility.index')->with($status, $message);
+
 
     }
 
