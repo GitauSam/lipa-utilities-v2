@@ -27,7 +27,11 @@ class UtilityController extends Controller
      */
     public function index()
     {
-        //
+        
+        return view('utility.index', 
+                        ['notifications' => auth()->user()->unreadNotifications]
+                    );
+
     }
 
     /**
@@ -38,7 +42,7 @@ class UtilityController extends Controller
     public function create()
     {
 
-       return view('utilities.create');
+       return view('utility.create');
 
     }
 

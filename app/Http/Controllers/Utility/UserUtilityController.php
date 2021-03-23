@@ -26,7 +26,11 @@ class UserUtilityController extends Controller
      */
     public function index()
     {
-        //
+        
+        return view('utility.user-index', 
+                            ['notifications' => auth()->user()->unreadNotifications]
+                        );
+
     }
 
     /**
@@ -47,7 +51,7 @@ class UserUtilityController extends Controller
                         ->getAllActiveUtilities($transactionLog)
                         ->get();
 
-        return view('utilities.create-user-utility', ['utilities' => $utilities]);
+        return view('utility.create-user-utility', ['utilities' => $utilities]);
 
     }
 

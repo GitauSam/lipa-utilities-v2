@@ -64,6 +64,48 @@ class UtilityActivator
 
     }
 
+    public function getAllActiveUserUtilities($transactionLog) 
+    {
+        $eventLog = new EventLog();
+        $eventLog->event_name = 'fetch all active user utilities process';
+        $eventLog->event_response = 'Fetch all active user utilities process started.';
+        $eventLog->save();
+        
+        try
+        {
+
+            $eventLog->transaction_log_id =  $transactionLog->id;
+            $eventLog->save();
+
+            $utilities = $this->userUtilityRepository->fetchAllActiveUserUtilities();
+
+            $transactionLog->transaction_status= '30';
+            $transactionLog->transaction_response .= " Fetched all active user utilities successfully.";
+            $transactionLog->save();
+
+            $eventLog->event_response .= " Fetched all active user utilities successfully.";
+            $eventLog->event_status = '30';
+            $eventLog->save();
+
+            return $utilities;
+
+        } catch (\Exception $e) 
+        {
+
+            $transactionLog->transaction_status= '25';
+            $transactionLog->transaction_response .= " Failed to fetch all active user utilities. Error: "
+                                                        . $e->getMessage() . ".";
+            $transactionLog->save();
+
+            $eventLog->event_response .= " Failed to fetch all active user utilities. Error: "
+                                            . $e->getMessage() . ".";
+            $eventLog->event_status = '25';
+            $eventLog->save();
+
+        }
+
+    }
+
     public function getUtility($id, $transactionLog) 
     {
         $eventLog = new EventLog();
@@ -236,6 +278,60 @@ class UtilityActivator
 
             $eventLog->event_response .= " Failed to create utility: "
                                             . $u['utility_name'] 
+                                            .". Error: "
+                                            . $e->getMessage() . ".";
+            $eventLog->event_status = '25';
+            $eventLog->save();
+
+        }
+
+    }
+
+    public function deleteUtility($id, $transactionLog)
+    {
+        $eventLog = new EventLog();
+        $eventLog->event_name = 'delete utility process';
+        $eventLog->event_response = 'Delete utility process started.';
+        $eventLog->save();
+        
+        try
+        {
+
+            $eventLog->transaction_log_id =  $transactionLog->id;
+            $eventLog->save();
+            
+            $utility = $this->getUtility($id, $transactionLog);
+            
+            $id = $this->decrypt($id);
+
+            $utility = $this->utilityRepository->delete($utility); 
+
+            $transactionLog->transaction_status= '30';
+            $transactionLog->transaction_response .= " Deleted utility: " 
+                                                        . $utility['utility_name']
+                                                        . " successfully.";
+            $transactionLog->save();
+
+            $eventLog->event_response .= " Deleted utility: " 
+                                            . $utility['utility_name']
+                                            . " successfully.";
+            $eventLog->event_status = '30';
+            $eventLog->save();
+
+            return $utility;
+
+        } catch (\Exception $e) 
+        {
+
+            $transactionLog->transaction_status= '25';
+            $transactionLog->transaction_response .= " Failed to delete utility with ID: "
+                                                        . $id
+                                                        .". Error: "
+                                                        . $e->getMessage() . ".";
+            $transactionLog->save();
+
+            $eventLog->event_response .= " Failed to update utility with ID: "
+                                            . $id 
                                             .". Error: "
                                             . $e->getMessage() . ".";
             $eventLog->event_status = '25';
