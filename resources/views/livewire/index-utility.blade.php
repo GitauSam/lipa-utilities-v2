@@ -7,7 +7,7 @@
             </div>
             <div class="card-info">
                 <a class="model-btn bg-blue-300 hover:bg-blue-500" 
-                    href="{{ route('utility.edit', \Illuminate\Support\Facades\Crypt::encryptString($utility->id)) }}"
+                    href="{{ route('admin.utility.edit', \Illuminate\Support\Facades\Crypt::encryptString($utility->id)) }}"
                 >
                     Edit
                 </a>

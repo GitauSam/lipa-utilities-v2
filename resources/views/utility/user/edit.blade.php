@@ -1,4 +1,3 @@
-{{-- dd('here') --}}
 <x-app-beta>
     <x-slot name="links">
         <div class="link">
@@ -12,7 +11,7 @@
     <x-slot name="games">
         <div class="games">
             <div class="status">
-                <h1>Create Utility</h1>
+                <h1>Edit Utility</h1>
             </div>
             @if ($errors->any())
                 <div>
@@ -28,22 +27,31 @@
                     </ul>
                 </div>
             @endif
-            <div class="cards">
+            <div class="cards"
+                @if($userUtility->utility->utility_name == 'Electricity')
+                    x-data="{ electricity: true }"
+                @endif
+            >
                 <div class="card">
-                    <form class="w-full" action="{{ route('utility.store') }}" method="POST">
+                    <form class="w-full" action="{{ route('utility.update', \Illuminate\Support\Facades\Crypt::encryptString($userUtility->id)) }}" method="POST">
                         @csrf
+                        {{ method_field('PATCH') }}
                         <div class="status form-input">
                             <label class="sm:mr-4 pt-2 text-lg font-semibold">Utility</label>
-                            <select name="user_utility" onchange="handleUtilityAccountNoInput(this)" required>
-                                <option value="">Select Utility</option>
-                                @foreach($utilities as $utility)
-                                    <option value="{{ \Illuminate\Support\Facades\Crypt::encryptString($utility->id) }}">{{ $utility->utility_name }}</option>
-                                @endforeach
+                            <select name="user_utility" required>
+                                <option value="{{ $userUtility->utility->utility_name }}">{{ $userUtility->utility->utility_name }}</option>
                             </select>
                         </div>
-                        <div id="kenya_power_meter_number_container" style="display: none;" class="status form-input">
+                        <div x-show="electricity" id="kenya_power_meter_number_container" class="status form-input">
                             <label class="sm:mr-4 text-lg font-semibold">Meter Number</label>
-                            <input id="kenya_power_meter_number_input" type="text" placeholder="Meter Number" name="kp_meter_number"/>
+                            <input x-bind:required=electricity 
+                                    id="kenya_power_meter_number_input" 
+                                    type="text" 
+                                    placeholder="Meter Number" 
+                                    name="kp_meter_number"
+                                    class="w-full"
+                                    value="{{ $userUtility->kenya_power_meter_number }}"
+                            />
                         </div>
                         <div class="submit">
                             <input type="submit" 
@@ -57,4 +65,3 @@
         </div>
     </x-slot>
 </x-app-beta>
-    

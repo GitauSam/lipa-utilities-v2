@@ -33,7 +33,7 @@
                     @endif
                 @endforeach
                 <a class="model-btn bg-blue-600 hover:bg-blue-800" 
-                            href="{{-- route('utility.user.edit', \Illuminate\Support\Facades\Crypt::encryptString($u->id)) --}}"
+                            href="{{ route('utility.edit', \Illuminate\Support\Facades\Crypt::encryptString($u->id)) }}"
                 >
                     Edit
                 </a>

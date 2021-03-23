@@ -1,7 +1,7 @@
 <x-app-beta>
     <x-slot name="links"> 
         <div class="link">
-            <a href="{{ route('utility.index') }}">View Utilities</a>
+            <a href="{{ route('admin.utility.index') }}">View Utilities</a>
         </div>
     </x-slot>
     <x-slot name="pro">

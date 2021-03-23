@@ -162,6 +162,62 @@ class UtilityActivator
 
     }
 
+    public function getUserUtility($id, $transactionLog) 
+    {
+        $eventLog = new EventLog();
+        $eventLog->event_name = 'fetch user utility by id process (edit get)';
+        $eventLog->event_response = 'Fetch user utility by id process started.';
+        $eventLog->save();
+        
+        try
+        {
+            
+            $id = $this->decrypt($id);
+
+            $eventLog->transaction_log_id =  $transactionLog->id;
+            $eventLog->save();
+
+            $userUtility = $this->userUtilityRepository->fetchById($id);
+
+            $transactionLog->transaction_status= '30';
+            $transactionLog->transaction_response .= " Fetched user utility with id: " 
+                                                        . $id 
+                                                        . " and name: " 
+                                                        . $userUtility->utility->utility_name
+                                                        ." successfully.";
+            $transactionLog->save();
+
+            $eventLog->event_response .= " Fetched user utility with id: " 
+                                            . $id 
+                                            . " and name: " 
+                                            . $userUtility->utility->utility_name
+                                            ." successfully.";
+            $eventLog->event_status = '30';
+            $eventLog->save();
+
+            return $userUtility;
+
+        } catch (\Exception $e) 
+        {
+
+            $transactionLog->transaction_status= '25';
+            $transactionLog->transaction_response .= " Failed to fetch user utility by id: "
+                                                        . $id 
+                                                        .". Error: "
+                                                        . $e->getMessage() . ".";
+            $transactionLog->save();
+
+            $eventLog->event_response .= " Failed to fetch user utility by id: "
+                                            . $id 
+                                            .". Error: "
+                                            . $e->getMessage() . ".";
+            $eventLog->event_status = '25';
+            $eventLog->save();
+
+        }
+
+    }
+
     public function saveUserUtility($data, $transactionLog) 
     {
         $eventLog = new EventLog();
@@ -279,6 +335,106 @@ class UtilityActivator
             $eventLog->event_response .= " Failed to create utility: "
                                             . $u['utility_name'] 
                                             .". Error: "
+                                            . $e->getMessage() . ".";
+            $eventLog->event_status = '25';
+            $eventLog->save();
+
+        }
+
+    }
+
+    public function editUtility($id, $u, $transactionLog) 
+    {
+        $eventLog = new EventLog();
+        $eventLog->event_name = 'update utility process';
+        $eventLog->event_response = 'Update utility process started.';
+        $eventLog->save();
+        
+        try
+        {
+
+            $eventLog->transaction_log_id =  $transactionLog->id;
+            $eventLog->save();
+
+            $utility = $this->getUtility($id, $transactionLog);
+
+            $utility = $this->utilityRepository->update($utility, $u); 
+
+            $transactionLog->transaction_status= '30';
+            $transactionLog->transaction_response .= " Updated utility: " 
+                                                        . $utility->utility_name
+                                                        . " successfully.";
+            $transactionLog->save();
+
+            $eventLog->event_response .= " Updated utility: " 
+                                            . $utility->utility_name
+                                            . " successfully.";
+            $eventLog->event_status = '30';
+            $eventLog->save();
+
+            return $utility;
+
+        } catch (\Exception $e) 
+        {
+
+            $transactionLog->transaction_status= '25';
+            $transactionLog->transaction_response .= " Failed to update utility: "
+                                                        . $u['utility_name']
+                                                        .". Error: "
+                                                        . $e->getMessage() . ".";
+            $transactionLog->save();
+
+            $eventLog->event_response .= " Failed to update utility: "
+                                            . $u['utility_name'] 
+                                            .". Error: "
+                                            . $e->getMessage() . ".";
+            $eventLog->event_status = '25';
+            $eventLog->save();
+
+        }
+
+    }
+
+    public function editUserUtility($id, $u, $transactionLog) 
+    {
+        $eventLog = new EventLog();
+        $eventLog->event_name = 'update user utility process';
+        $eventLog->event_response = 'Update user utility process started.';
+        $eventLog->save();
+        
+        try
+        {
+
+            $eventLog->transaction_log_id =  $transactionLog->id;
+            $eventLog->save();
+
+            $userUtility = $this->getUserUtility($id, $transactionLog);
+
+            $userUtility = $this->userUtilityRepository->update($userUtility, $u); 
+
+            $transactionLog->transaction_status= '30';
+            $transactionLog->transaction_response .= " Updated user utility: " 
+                                                        . $userUtility->utility->utility_name
+                                                        . " successfully.";
+            $transactionLog->save();
+
+            $eventLog->event_response .= " Updated user utility: " 
+                                            . $userUtility->utility->utility_name
+                                            . " successfully.";
+            $eventLog->event_status = '30';
+            $eventLog->save();
+
+            return $userUtility;
+
+        } catch (\Exception $e) 
+        {
+
+            $transactionLog->transaction_status= '25';
+            $transactionLog->transaction_response .= " Failed to update user utility. Error: "
+                                                        . $e->getMessage() . ".";
+            $transactionLog->save();
+
+            $eventLog->event_response .= " Failed to update user utility. Error: "
                                             . $e->getMessage() . ".";
             $eventLog->event_status = '25';
             $eventLog->save();

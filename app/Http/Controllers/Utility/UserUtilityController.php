@@ -27,7 +27,7 @@ class UserUtilityController extends Controller
     public function index()
     {
         
-        return view('utility.user-index', 
+        return view('utility.user.index', 
                             ['notifications' => auth()->user()->unreadNotifications]
                         );
 
@@ -51,7 +51,7 @@ class UserUtilityController extends Controller
                         ->getAllActiveUtilities($transactionLog)
                         ->get();
 
-        return view('utility.create-user-utility', ['utilities' => $utilities]);
+        return view('utility.user.create', ['utilities' => $utilities]);
 
     }
 
@@ -133,7 +133,24 @@ class UserUtilityController extends Controller
      */
     public function edit($id)
     {
-        //
+        
+        $transactionLog = new TransactionLog();
+
+        $transactionLog->event = "fetch user utility process (edit get)";
+        $transactionLog->transaction_response = "Fetch user utility process started.";
+        $transactionLog->save();
+
+        $userUtility = $this->activator->getUserUtility($id, $transactionLog);
+
+        if ($transactionLog->transaction_status == '30')
+        {
+            
+            return view('utility.user.edit', ['userUtility' => $userUtility]);
+
+        } 
+
+        return redirect()->route('utility.index')->withErrors('Could not edit utility');
+
     }
 
     /**
@@ -145,7 +162,33 @@ class UserUtilityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->user_utility == 'Electricity')
+        {
+            if (!$request->has('kp_meter_number') || $request->kp_meter_number == null)
+            {
+                return redirect()->back()->withErrors('Meter number is required!');
+            }
+        }
+
+        $transactionLog = new TransactionLog();
+
+        $transactionLog->event = "update user utility process";
+        $transactionLog->transaction_response = " Update user utility process started.";
+        $transactionLog->save();
+
+        $userUtility = $this->activator->editUserUtility($id, $request, $transactionLog);
+
+        if ($transactionLog->transaction_status == '30')
+        {
+            $status = "success_notif";
+            $message = "Utility: " . $userUtility->utility->utility_name . " updated successfully.";
+        } else
+        {
+            $status = "failure_notif";
+            $message = "Could not update utility: " . $request['utility_name'] . ".";
+        }
+
+        return redirect()->route('utility.index')->with($status, $message);
     }
 
     /**
