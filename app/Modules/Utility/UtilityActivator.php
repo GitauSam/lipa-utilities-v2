@@ -4,7 +4,9 @@ namespace App\Modules\Utility;
 
 use App\Exceptions\Utility\UserUtilityAlreadyExistsException;
 use App\Models\EventLog\EventLog;
+use App\Models\TransactionLog\TransactionLog;
 use App\Models\Utility\Repository\UserUtilityRepository;
+use App\Models\Utility\Repository\UtilityPaymentMethodRepository;
 use App\Models\Utility\Repository\UtilityRepository;
 use App\Modules\Utils\Utils;
 
@@ -18,6 +20,7 @@ class UtilityActivator
         
         $this->utilityRepository = new UtilityRepository();
         $this->userUtilityRepository = new UserUtilityRepository();
+        $this->utilityPaymentRepository = new UtilityPaymentMethodRepository();
     
     }
 
@@ -343,6 +346,54 @@ class UtilityActivator
 
     }
 
+    public function saveUtilityPayment($transactionLog) 
+    {
+        $eventLog = new EventLog();
+        $eventLog->event_name = 'create utility payment transaction';
+        $eventLog->event_response = 'Create utility payment transaction started.';
+        $eventLog->save();
+        
+        try
+        {
+
+            $eventLog->transaction_log_id =  $transactionLog->id;
+            $eventLog->save();
+
+            $transactionLog->transaction_response .= " Create utility payment transaction started.";
+            $transactionLog->save();
+
+            $this->utilityPaymentRepository
+                    ->save(
+                        $transactionLog->id, 
+                        $transactionLog->transaction_amount,
+                        $transactionLog->mpesa_request_timestamp
+                    );
+
+            $transactionLog->transaction_status= '30';
+            $transactionLog->transaction_response .= " Created utility payment transaction successfully.";
+            $transactionLog->save();
+
+            $eventLog->event_response .= " Created utility payment transaction successfully.";
+            $eventLog->event_status = '30';
+            $eventLog->save();
+
+        } catch (\Exception $e) 
+        {
+
+            $transactionLog->transaction_status= '25';
+            $transactionLog->transaction_response .= " Failed to created utility payment transaction. Error: "
+                                                        . $e->getMessage() . ".";
+            $transactionLog->save();
+
+            $eventLog->event_response .= " Failed to created utility payment transaction. Error: "
+                                                        . $e->getMessage() . ".";
+            $eventLog->event_status = '25';
+            $eventLog->save();
+
+        }
+
+    }
+
     public function editUtility($id, $u, $transactionLog) 
     {
         $eventLog = new EventLog();
@@ -489,6 +540,65 @@ class UtilityActivator
             $eventLog->event_response .= " Failed to update utility with ID: "
                                             . $id 
                                             .". Error: "
+                                            . $e->getMessage() . ".";
+            $eventLog->event_status = '25';
+            $eventLog->save();
+
+        }
+
+    }
+
+    public function getPayUserUtilityWithMpesa($id)
+    {
+
+        $transactionLog = new TransactionLog();
+
+        $transactionLog->event = "pay user utility process";
+        $transactionLog->transaction_response = "Pay user utility process started.";
+        $transactionLog->save();
+
+        $eventLog = new EventLog();
+        $eventLog->event_name = 'pay user utility process';
+        $eventLog->event_response = 'Pay user utility process started.';
+        $eventLog->save();
+
+        try
+        {
+
+            $eventLog->transaction_log_id =  $transactionLog->id;
+            $eventLog->save();
+
+            $userUtility = $this->getUserUtility($id, $transactionLog);
+
+            if ($transactionLog->transaction_status == '30')
+            {
+
+                $eventLog->event_response .= $transactionLog->transaction_response;
+                $eventLog->event_status = '30';
+                $eventLog->save();
+
+                return array('status' => '30', 'utility' => $userUtility);
+
+            } else
+            {
+
+                $eventLog->event_response .= $transactionLog->transaction_response;
+                $eventLog->event_status = '20';
+                $eventLog->save();
+                
+                return array('status' => '20', 'utility' => []);
+
+            }
+
+        } catch (\Exception $e) 
+        {
+
+            $transactionLog->transaction_status= '25';
+            $transactionLog->transaction_response .= " Failed to pay user utility. Error: "
+                                                        . $e->getMessage() . ".";
+            $transactionLog->save();
+
+            $eventLog->event_response .= " Failed to pay user utility. Error: "
                                             . $e->getMessage() . ".";
             $eventLog->event_status = '25';
             $eventLog->save();

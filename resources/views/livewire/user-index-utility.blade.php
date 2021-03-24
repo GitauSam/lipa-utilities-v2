@@ -8,7 +8,7 @@
                 @foreach($u->utility->utilityPaymentMethods as $pm)
                     @if($pm->payment_method_name == 'M-Pesa' && $pm->status == 1)
                         <a class="model-btn bg-green-500 hover:bg-green-800" 
-                            href="{{-- route('utility.pay.mpesa.get', \Illuminate\Support\Facades\Crypt::encryptString($u->id)) --}}"
+                            href="{{ route('utility.lipa-na-mpesa.get', \Illuminate\Support\Facades\Crypt::encryptString($u->id)) }}"
                         >
                             Pay with {{ $pm->payment_method_name }}
                         </a>
