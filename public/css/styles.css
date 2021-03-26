@@ -442,7 +442,7 @@ main {
 /* Glass Section Start */
 
 .glass {
-    min-height: 80vh;
+    height: 80vh;
     width: 60%;
     background: linear-gradient(
       to right bottom,
@@ -453,7 +453,6 @@ main {
     z-index: 2;
     backdrop-filter: blur(2rem);
     display: flex;
-    overflow: hidden;
 }
 
 .dashboard {
@@ -580,6 +579,12 @@ main {
     font-size: 36px;
     font-weight: 700;
 }
+
+.status-sub-header {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.125rem;
+}
   
 .status input {
     background: linear-gradient(
@@ -590,6 +595,7 @@ main {
     border: none;
     padding: 0.5rem;
     border-radius: 2rem;
+    height: 3rem;
 }
 
 .cards {
@@ -597,6 +603,8 @@ main {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
 .card {
@@ -642,6 +650,8 @@ main {
   
 .form-input label {
     flex: 2;
+    font-size: 1.125rem;
+    font-weight: 600;
 }
   
 .form-input input, select {
@@ -816,12 +826,22 @@ main {
         margin-bottom: .25rem;
     }
 
+    .status h1 {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .status-sub-header {
+        padding: 2rem 0;
+    }
+
     .card {
         margin: 0.5rem 0rem;
     }
 
     .form-input {
         flex-direction: column;
+        font-size: 16px;
     }
     
     .form-input label {

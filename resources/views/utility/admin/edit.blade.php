@@ -36,22 +36,22 @@
                         <form class="w-full" action="{{ route('admin.utility.update', \Illuminate\Support\Facades\Crypt::encryptString($utility->id)) }}" method="POST">
                             @csrf
                             {{ method_field('PATCH') }}
-                            <div class="status">
-                                <label class="sm:mr-4 text-lg font-semibold">Name</label>
-                                <input type="text" class="w-full" placeholder="Utility Name" name="utility_name" value="{{ $utility->utility_name }}" required/>
+                            <div class="status form-input">
+                                <label>Name</label>
+                                <input type="text" placeholder="Utility Name" name="utility_name" value="{{ $utility->utility_name }}" required/>
                             </div>
                             
                             @foreach($utility->utilityPaymentMethods as $pm)
                                 @if($pm->payment_method_name == 'M-Pesa') 
                                     @if($pm->status == 1)
                                         <div id="mpesa_paybill_number_container" class="status form-input">
-                                            <label class="sm:mr-4 text-lg font-semibold">Paybill Number</label>
-                                            <input id="mpesa_paybill_number_input" class="w-full" type="text" placeholder="Paybill Number" name="paybill_number" value="{{ $pm->lipa_na_mpesa_paybill }}" required/>
+                                            <label>Paybill Number</label>
+                                            <input id="mpesa_paybill_number_input" type="text" class="" placeholder="Paybill Number" name="paybill_number" value="{{ $pm->lipa_na_mpesa_paybill }}" required/>
                                         </div>
                                     @else
                                         <div id="mpesa_paybill_number_container" style="display: none;" class="status form-input">
-                                            <label class="sm:mr-4 text-lg font-semibold">Paybill Number</label>
-                                            <input id="mpesa_paybill_number_input" class="w-full" type="text" placeholder="Paybill Number" name="paybill_number" value="{{ $pm->lipa_na_mpesa_paybill }}"/>
+                                            <label>Paybill Number</label>
+                                            <input id="mpesa_paybill_number_input" class="" type="text" placeholder="Paybill Number" name="paybill_number" value="{{ $pm->lipa_na_mpesa_paybill }}"/>
                                         </div>
                                     @endif
                                 @endif
@@ -59,12 +59,12 @@
 
                             @if($mpesaStatus == 0)
                                 <div id="mpesa_paybill_number_container" style="display: none;" class="status form-input">
-                                    <label class="sm:mr-4 text-lg font-semibold">Paybill Number</label>
+                                    <label>Paybill Number</label>
                                     <input id="mpesa_paybill_number_input" type="text" placeholder="Paybill Number" name="paybill_number"/>
                                 </div>
                             @endif
                             
-                            <div class="status text-center text-lg font-semibold">
+                            <div class="status status-sub-header">
                                 <label>Payment Methods</label>
                             </div>
                             <div class="mb-12">
