@@ -446,8 +446,8 @@ main {
     width: 60%;
     background: linear-gradient(
       to right bottom,
-      rgba(255, 255, 255, 0.7),
-      rgba(255, 255, 255, 0.3)
+      #ffffffb3,
+      #ffffff4d
     );
     border-radius: 2rem;
     z-index: 2;
@@ -464,8 +464,8 @@ main {
     text-align: center;
     background: linear-gradient(
       to right bottom,
-      rgba(255, 255, 255, 0.7),
-      rgba(255, 255, 255, 0.3)
+      #ffffffb3,
+      #ffffff4d
     );
     border-radius: 2rem;
 }

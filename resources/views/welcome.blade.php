@@ -14,227 +14,269 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/styles-beta.css') }}">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         
     </head>
     <body class="antialiased">
-        
-        <!-- Hero Section -->
-        <section id="hero" class="hero">
-            @if (Route::has('login'))
-                <div class="nav-content">
-                    <div class="nav-content-logo">
-                        <a href="{{ url('/') }}">Lipia Utilities</a>
+        <!-- banner section -->
+        <section id="banner" class="banner">
+            <div class="navbar">
+                <nav class="nav container">
+                    <div class="logo">
+                        <a href="{{ url('/') }}">lipa utilities</a>
                     </div>
-                    <div class="nav-content-links">
-                        @auth
-                            <a href="{{ url('/dashboard') }}">Dashboard</a>
-                        @else
-                            <a href="{{ route('login') }}">Login</a>
-
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="ml-4">Register</a>
-                            @endif
-                        @endauth
+                    <ul>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#start-now">Discover</a></li>
+                    </ul>
+                    <div class="signin pill">
+                        <a href="{{ url('/login') }}">Sign In</a>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </nav>
+                <div class="hamburger">
+                    <i class="fas fa-bars fa-2x"></i>
+                </div>
+            </div>
+            <div class="container">
+                <div class="banner-left">
+                    <h1>Utility <br />
+                        management <br />
+                        and payment <br />
+                        via the internet
+                    </h1>
+                    <h3>
+                        Scores of users use lipa utilities features <br />
+                        to manage and pay for their utilities <br />
+                        online
+                    </h3>
+                    <div class="signin pill">
+                        <a href="{{ url('/login') }}">Sign In</a>
+                        <i class="fas fa-chevron-right"></i>
                     </div>
                 </div>
-            @endif
-            <div class="hero-content">
-                <h1>Lipa Utilities</h1>
-                <h2>with ease.</h2>
+                <div class="banner-right">
+                </div>
+            </div>
+            <img src="{{ asset('images/banner2.svg') }}" alt="banner">
+            <div class="banner-gradient-diagonal">
+            </div>
+        </section>
+        <!-- end banner section -->
+        <!-- services section start -->
+        <section id="services" class="services container">
+            <h3>Everything in one platform</h3>
+            <h2>A myriad of utility services <br />
+                with several fully intergrated  <br />
+                payment options
+            </h2>
+            <div class="service-cards">
+                <x-service-card>
+                    <x-slot name="img">
+                        {{ asset('images/bolt.png') }}
+                    </x-slot>
+                    <x-slot name="name">
+                        <div class="service-card-label">
+                            Electricity
+                        </div>
+                    </x-slot>
+                    <x-slot name="description">
+                        No more dark <br />
+                        nights. Easily <br />
+                        pay for your postpaid <br />
+                        bills and buy tokens <br />
+                        to ensure your <br />
+                        environment is <br />
+                        always illuminated.
+                    </x-slot>
+                </x-service-card>
+                <x-service-card>
+                    <x-slot name="img">
+                        {{ asset('images/garbage.png') }}
+                    </x-slot>
+                    <x-slot name="name">
+                        <div class="service-card-label">
+                            Garbage
+                        </div>
+                    </x-slot>
+                    <x-slot name="description">
+                        We play our<br /> 
+                        part in conserving <br />
+                        the environment by<br />
+                        partnering with <br />
+                        reliable garbage <br />
+                        collectors who will<br />
+                        leave your <br />
+                        neighbourhood clean<br />
+                        if not sparkling.
+
+                    </x-slot>
+                </x-service-card>
+                <x-service-card>
+                    <x-slot name="img">
+                        {{ asset('images/internet.png') }}
+                    </x-slot>
+                    <x-slot name="name">
+                        <div class="service-card-label">
+                            Internet
+                        </div>
+                    </x-slot>
+                    <x-slot name="description">
+                        Easily pay for your <br />
+                        needs to any service <br />
+                        provider that we <br />
+                        have partnered with.<br />
+                        Our platform gives <br />
+                        you the chance <br />
+                        to clear the bills <br />
+                        and keep track of your <br />
+                        payments.
+                    </x-slot>
+                </x-service-card>
+                <x-service-card>
+                    <x-slot name="img">
+                        {{ asset('images/television.png') }}
+                    </x-slot>
+                    <x-slot name="name">
+                        <div class="service-card-label">
+                            Cable
+                        </div>
+                    </x-slot>
+                    <x-slot name="description">
+                        We have <br />
+                        partnered with <br />
+                        several cable <br />
+                        providers to <br />
+                        ensure that it is <br />
+                        easier for you to pay <br />
+                        for your <br />
+                        service plan <br />
+                        and enjoy <br />
+                        qualityentertainment.
+                    </x-slot>
+                </x-service-card>
+                <x-service-card>
+                    <x-slot name="img">
+                        {{ asset('images/water-utility.png') }}
+                    </x-slot>
+                    <x-slot name="name">
+                        <div class="service-card-label">
+                            Water
+                        </div>
+                    </x-slot>
+                    <x-slot name="description">
+                        Water is life <br />
+                        We make a <br />
+                        point to simplify <br />
+                        your access to <br />
+                        this vital resource <br />
+                        by helping you <br />
+                        pay your water <br />
+                    </x-slot>
+                </x-service-card>
+            </div>
+        </section>
+        <!-- services section end -->
+        <!-- payment options section -->
+        <section id="payment-options" class="payment-options">
+            <div class="container payment-options-cards">
+                <div class="card payment-option-card">
+                    <img src="{{ asset('images/mpesa-logo.svg') }}" alt="mpesa logo" />
+                </div>
+                <div class="card payment-option-card">
+                    <img src="{{ asset('images/airtel-logo.svg') }}" alt="airtel logo" />
+                </div>
+                <div class="card payment-option-card">
+                    <img src="{{ asset('images/credit-card.svg') }}" alt="credit card" />
+                </div>
+            </div>
+            <div class="payment-options-diagonal">
+            </div>
+        </section>
+        <!-- payment options section end-->
+        <!-- about section start -->
+        <section id="about" class="about container">
+            <div class="about-card">
+                <img src="{{ asset('images/bank-notes.png') }}" />
                 <p>
-                    Easily pay for your household and other utilities 
-                    <br /> through a myriad of payment methods
-                    <br /> offered by Lipa Utilities.
+                    Pay for your every day utilities through an array of payment technologies that are powered by the Lipa Utilities platform. <br />
+                    Just select a utility from the several utilities that are listed then select a method of payment for the amount you wish to pay. 
+                </p>
+            </div>
+            <div class="about-card transition ease-in-out duration-150">
+                <img src="{{ asset('images/cashbook.png') }}" />
+                <p>
+                    Keep track of your utility payments and be able to <br />
+                    review how much you spend on each utility. <br />
+                </p>
+            </div>
+            <div class="about-card">
+                <img src="{{ asset('images/laptop-and-phone.png') }}" />
+                <p>
+                    Pay your bills through your mobile phone and <br />
+                    other devices through M-Pesa and Airtel Money. <br />
                 </p>
             </div>
         </section>
-        <!-- End Hero Section -->
-
-        <!-- Services Section -->
-        <section id="services" class="services">
-            <h1>Services</h1>
-            <div class="services-container">
-                <div class="feature-card">
-                    <h4>Internet</h4>
-                    <img src="{{ asset('images/internet-utility.png') }}" alt="">
+        <!-- about section end -->
+        <!-- start now section start -->
+        <section id="start-now" class="start-now">
+            <div class="container">
+                <div class="call-to-action">
+                    <h3>Ready to get started?</h3>
                     <p>
-                        Easily pay for your <br /> 
-                        needs to any service <br />
-                        provider that we have <br />
-                        partnered with. <br />
-                        Our platform gives <br />
-                        you the chance to <br />
-                        clear your bills and <br />
-                        keep track <br />
-                        of your payments.
+                        Create an account with us 
+                        and easily pay for your 
+                        household
+                        utilities and also track your 
+                        expenditure.
                     </p>
-                </div>
-                <div class="feature-card">
-                    <h4>Cable Television</h4>
-                    <img src="{{ asset('images/television-utility.png') }}" alt="">
-                    <p>
-                        We have partnered <br /> 
-                        with several cable <br />
-                        providers to ensure <br />
-                        that we have make it <br />
-                        simple for you to <br />
-                        pay for your service <br />
-                        plans and enjoy <br />
-                        high quality <br />
-                        entertainment.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <h4>Garbage Collection</h4>
-                    <img src="{{ asset('images/garbage-utility.png') }}" alt="">
-                    <p>
-                        We play our part <br />
-                        in conserving the <br />
-                        environment by <br />
-                        partnering with a <br />
-                        number of garbage <br />
-                        collectors. By that <br />
-                        we have made it <br />
-                        easy for you to <br />
-                        pay for this service. <br>
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <h4>Water</h4>
-                    <img src="{{ asset('images/water-utility.png') }}" alt="">
-                    <p>
-                        Water is life! <br />
-                        Thus we endeavour <br />
-                        to make it easy for <br />
-                        you to access this <br />
-                        utility by paying <br />
-                        your bills to water <br />
-                        simply.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <h4>Electricity</h4>
-                    <img src="{{ asset('images/electric-utility.png') }}" alt="">
-                    <p>
-                        No more dark nights. <br />
-                        Easily pay for your <br />
-                        postpaid bills and <br />
-                        buy tokens to ensure <br />
-                        your environment is always <br />
-                        illuminated.
-                    </p>
-                </div>
-            </div>
-        </section>
-        <!-- End Services Section -->
-
-        <!-- Discover Section -->
-        <section id="discover" class="discover">
-            <h1>Discover</h1>
-
-            <div class="w3-content w3-section">
-                <div class="mySlides w3-animate-fading">
-                    <img src="{{ asset('images/digital-payment-one.jpg') }}">
-                    <div class="discover-text-centered dtc-l">
-                        Ease of digital payments.
+                    <div class="pill">
+                        <a href="{{ url('/login') }}">Start Now</a>
+                        <i class="fas fa-chevron-right"></i>
                     </div>
                 </div>
-                <div class="mySlides w3-animate-fading">
-                    <img src="{{ asset('images/services-ledger.jpg') }}">
-                    <div class="discover-text-centered dtc-md">
-                        Track how much you spend <br />
-                        on your utilities.
+                <div class="benefits">
+                    <div class="benefit">
+                        <img src="{{ asset('images/coins.png') }}" alt="ease of payments" />
+                        <h4>Easily pay for your needs</h4>
+                        <p>
+                            Allow technology to
+                            take care of you and be
+                            more at peace
+                        </p>
                     </div>
-                </div>
-                <div class="mySlides w3-animate-fading">
-                    <img src="{{ asset('images/generic-mobile-payment.jpg') }}">
-                    <div class="discover-text-centered dtc-sm">
-                        All payments transacted securely <br />
-                        through our platform. 
+                    <div class="benefit">
+                        <img src="{{ asset('images/price-tag.png') }}" alt="ease of tracking payments" />
+                        <h4>Always know how much you've paid</h4>
+                        <p>
+                            Be upto date with the finances you
+                            dedicate to your household 
+                            utilities
+                        </p>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- End Discover Section -->
-        
-        <!-- About Section -->
-        <section id="about" class="about">
-            <h1>About</h1>
-            <div class="about-container">
-                <div class="about-feature-card">
-                    <i class="fas fa-money-bill-wave fa-4x"></i>
-                    <p>
-                        Pay for your every day utilities through an array of payment
-                        technologies that are powered by the Lipa Utilities platform.
-                        Just select a utility from the several utilities that are listed
-                        then select a method of payment for the amount you wish to pay.
-                    </p>
-                </div>
-                <div class="about-feature-card">
-                    <i class="far fa-list-alt fa-4x"></i>
-                    <p>
-                        Keep track of your utility payments and be able to review how
-                        much you spend on each utility. Lipa Utilities keeps the history of successful 
-                        utility payments enabling you to budget your future expenses efficiently.
-                    </p>
-                </div>
-                <div class="about-feature-card">
-                    <i class="fas fa-mobile fa-4x"></i>
-                    <p>
-                        Pay your bills through your mobile phone and other devices
-                        through M-Pesa and Airtel Money.
-                    </p>
-                </div>
-                <div class="about-feature-card">
-                    <i class="far fa-credit-card fa-4x"></i>
-                    <p>
-                        Alternatively pay the bills through the bank.
-                    </p>
-                </div>
-                <div class="about-feature-card">
-                    <i class="fas fa-power-off fa-3x"></i>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Amet eum rem perferendis reiciendis, 
-                        eos sapiente aliquid beatae cumque itaque mollitia ullam 
-                        porro laudantium nobis, tempore dolore ipsa cum! 
-                        Illo, eveniet.
-                    </p>
-                </div>
-                <div class="about-feature-card">
-                    <i class="fas fa-upload fa-3x"></i>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Amet eum rem perferendis reiciendis, 
-                        eos sapiente aliquid beatae cumque itaque mollitia ullam 
-                        porro laudantium nobis, tempore dolore ipsa cum! 
-                        Illo, eveniet.
-                    </p>
-                </div>
+            <div class="start-now-diagonal">
             </div>
         </section>
-        <!-- About Section End -->
-
-        <!-- Footer Section -->
-        <footer class="footer bg-dark py-16">
-            <div class="container mx-auto flex flex-row justify-between px-36">
+        <!-- start now section end -->
+        <!-- footer section start -->
+        <section class="footer">
+            <div class="container">
                 <div>
-                    <h1 class="text-white">Lipia Utilities</h1>
-                    <p class="text-white">Copyright &copy; 2021</p>
+                    <h1>lipa utilities</h1>
+                    <p>Copyright &copy; 2021</p>
                 </div>
-                <div class="social py-12">
+                <div class="social">
                     <a href="#" class="text-white"><i class="fab fa-facebook fa-2x"></i></a>
                     <a href="#" class="text-white"><i class="fab fa-instagram fa-2x"></i></a>
                     <a href="#" class="text-white"><i class="fab fa-twitter fa-2x"></i></a>
                 </div>
             </div>
-        </footer>
-        <!-- Footer Section End -->
-
-        <!-- Scripts -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-        <script language="JavaScript" text="text/javascript" src="{{ asset('js/custom.js') }}"></script>
+        </section>
+        <!-- footer section end -->
     </body>
 </html>

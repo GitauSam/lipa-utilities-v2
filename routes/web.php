@@ -20,6 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/welcome/beta', function () {
+    return view('welcome-beta');
+});
+
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function() {
 
