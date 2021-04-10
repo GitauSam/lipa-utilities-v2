@@ -1,6 +1,5 @@
-<div 
-    style="background: linear-gradient(to bottom, #d9fcf5, #a8effa);"
-    class="min-h-screen flex flex-col justify-center items-center pt-6 sm:pt-0"
+<div class="min-h-screen flex flex-col justify-center items-center 
+            pt-6 sm:pt-0 authentication-card"
 >
     <!-- <div>
         {{-- $logo --}}
@@ -8,7 +7,7 @@
 
     <div class="nav-content nav-content-sm">
         <div class="nav-content-logo nav-content-logo-sm">
-            <a href="{{ url('/') }}">Lipia Utilities</a>
+            <a href="{{ url('/') }}">lipa utilities</a>
         </div>
         <div class="nav-content-links nav-content-links-sm">
         </div>

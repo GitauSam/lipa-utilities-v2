@@ -20,9 +20,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/welcome/beta', function () {
-    return view('welcome-beta');
-});
+// Route::get('/welcome/beta', function () {
+//     return view('welcome-beta');
+// });
 
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function() {
@@ -44,13 +44,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function() {
                 Route::name('admin.')->group(function() {
                         Route::resource('utility', UtilityController::class);
                 });
+
+                // Dashboard
+        Route::get('/dashboard', function() {
+                        return view('dashboard');
+                })->name('dashboard');
         });
         
     });
-
-    // Dashboard
-    Route::get('/dashboard', function() {
-            return view('dashboard');
-    })->name('dashboard');
 
 });

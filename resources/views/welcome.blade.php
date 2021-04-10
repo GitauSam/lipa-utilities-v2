@@ -16,25 +16,40 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/styles-beta.css') }}">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+        <!-- Scripts -->
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
         
     </head>
     <body class="antialiased">
         <!-- banner section -->
         <section id="banner" class="banner">
-            <div class="navbar">
+            <div x-data="{ open: false }" class="navbar">
                 <nav class="nav container">
                     <div class="logo">
-                        <a href="{{ url('/') }}">lipa utilities</a>
+                        @auth
+                            @if(auth()->user()->hasRole(config('services.general.user_role'))) 
+                                <a href="{{ url('/utility') }}">lipa utilities</a>
+                            @else
+                                <a href="{{ url('/admin/utility') }}">lipa utilities</a>
+                            @endif
+                        @else
+                            <a href="{{ url('/') }}">lipa utilities</a>
+                        @endauth
                     </div>
                     <ul>
                         <li><a href="#services">Services</a></li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#start-now">Discover</a></li>
                     </ul>
-                    <div class="signin pill">
-                        <a href="{{ url('/login') }}">Sign In</a>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
+                    @auth
+                        <x-settings-link />
+                    @else
+                        <div class="signin pill">
+                            <a href="{{ url('/register') }}">Sign Up</a>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    @endauth
                 </nav>
                 <div class="hamburger">
                     <i class="fas fa-bars fa-2x"></i>
@@ -52,10 +67,13 @@
                         to manage and pay for their utilities <br />
                         online
                     </h3>
-                    <div class="signin pill">
-                        <a href="{{ url('/login') }}">Sign In</a>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
+                    @auth
+                    @else
+                        <div class="signin pill">
+                            <a href="{{ url('/login') }}">Sign In</a>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    @endauth
                 </div>
                 <div class="banner-right">
                 </div>
@@ -233,10 +251,13 @@
                         utilities and also track your 
                         expenditure.
                     </p>
-                    <div class="pill">
-                        <a href="{{ url('/login') }}">Start Now</a>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
+                    @auth
+                    @else
+                        <div class="pill">
+                            <a href="{{ url('/register') }}">Start Now</a>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    @endauth
                 </div>
                 <div class="benefits">
                     <div class="benefit">

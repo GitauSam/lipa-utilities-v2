@@ -27,6 +27,7 @@ html {
     z-index: 2;
     color: #fff;
     position: relative;
+    transition: all 150ms ease-in-out;
 }
 
 .nav {
@@ -64,13 +65,14 @@ html {
     align-items: center;
     width: fit-content;
     gap: .5rem;
-    background: #c4c4c4ab;
+    background: #216E80;
     color: #fff;
     font-size: 16px;
+    transition: all 150ms ease-in-out;
 }
 
 .signin:hover {
-    background: #c4c4c4;
+    /* background: #c4c4c4; */
     font-size: 18px;
 }
 
@@ -243,6 +245,7 @@ html {
     position: absolute;
     top: 0;
     left: 0;
+    /* background: #201f3f; */
     background: #6968AD;
     transform: rotate(-7deg);
 }
@@ -379,7 +382,8 @@ html {
 /* footer section start */
 .footer {
     color: #fff;
-    background: #6968AD;
+    /* background: #6968AD; */
+    background: #201f3f;
     margin-top: 300px;
     font-family: 'Poppins', sans-serif;
 }
@@ -397,6 +401,15 @@ html {
     gap: 2rem;
 }
 /* footer section end */
+
+/* authentication card start */
+.authentication-card {
+    background: #6968AD;
+    -webkit-box-shadow: 3px 2px 5px 9px rgba(0,0,0,0.15);
+    -moz-box-shadow: 3px 2px 5px 9px rgba(0,0,0,0.15);
+    box-shadow: 3px 2px 5px 9px rgba(0,0,0,0.15);
+}
+/* authentication card end */
 
 @media screen and (max-width: 768px) {
     .container {
