@@ -3,6 +3,7 @@
 use App\Http\Controllers\Utility\Payment\MpesaController;
 use App\Http\Controllers\Utility\UserUtilityController;
 use App\Http\Controllers\Utility\UtilityController;
+use App\Http\Controllers\Utility\UtilityPaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function() {
 
     // Utility routes
     Route::resource('utility', UserUtilityController::class);
+
+    // Utility payments routes
+    Route::resource('payments', UtilityPaymentController::class);
 
     // Utility Payment routes
     Route::get('utility/pay/mpesa/{id}', [MpesaController::class, 'showLipaNaMpesa'])

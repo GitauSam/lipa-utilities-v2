@@ -3,9 +3,9 @@
         <div class="link">
             <a href="{{ route('admin.utility.create') }}">Add Utility</a>
         </div>
-        <!-- <div class="link"> -->
-            <!-- <a href="{{-- route('utility.payment.index') --}}">View Payments</a> -->
-        <!-- </div> -->
+        <div class="link">
+            <a href="{{ route('payments.index') }}">View Payments</a>
+        </div>
     </x-slot>
     <x-slot name="pro">
         <h2>Join pro for free games.</h2>

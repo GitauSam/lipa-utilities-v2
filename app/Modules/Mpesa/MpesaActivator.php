@@ -7,6 +7,7 @@ use App\Models\EventLog\EventLog;
 use App\Models\Mpesa\MpesaCallbackResponse;
 use App\Modules\TransactionLogActivator\TransactionLogActivator;
 use App\Modules\Utility\UtilityActivator;
+use App\Modules\Utility\UtilityPaymentActivator;
 use App\Modules\Utils\Utils;
 use App\Notifications\UtilityPayment\FailedPaymentNotification;
 use App\Notifications\UtilityPayment\MpesaPaymentCancelledByUserNotification;
@@ -16,6 +17,11 @@ use Illuminate\Support\Facades\Log;
 
 class MpesaActivator
 {
+
+    public function __construct()
+    {
+        $this->utilityPaymentActivator = new UtilityPaymentActivator();
+    }
 
     use Utils;
 
@@ -105,9 +111,7 @@ class MpesaActivator
             $eventLog->event_status = '30';
             $eventLog->save();
 
-            $utilityActivator = new UtilityActivator();
-
-            $utilityActivator->saveUtilityPayment($transactionLog);
+            $this->utilityPaymentActivator->saveUtilityPayment($transactionLog);
 
             if (!$this->isNullOrEmptyString($transactionLog->mpesa_callback_result_code))
             {

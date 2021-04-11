@@ -296,7 +296,7 @@ class UtilityActivator
 
     }
 
-    public function saveUtility($u, $transactionLog) 
+    public function saveUtility($u, $transactionLog)
     {
         $eventLog = new EventLog();
         $eventLog->event_name = 'create utility process';
@@ -339,54 +339,6 @@ class UtilityActivator
                                             . $u['utility_name'] 
                                             .". Error: "
                                             . $e->getMessage() . ".";
-            $eventLog->event_status = '25';
-            $eventLog->save();
-
-        }
-
-    }
-
-    public function saveUtilityPayment($transactionLog) 
-    {
-        $eventLog = new EventLog();
-        $eventLog->event_name = 'create utility payment transaction';
-        $eventLog->event_response = 'Create utility payment transaction started.';
-        $eventLog->save();
-        
-        try
-        {
-
-            $eventLog->transaction_log_id =  $transactionLog->id;
-            $eventLog->save();
-
-            $transactionLog->transaction_response .= " Create utility payment transaction started.";
-            $transactionLog->save();
-
-            $this->utilityPaymentRepository
-                    ->save(
-                        $transactionLog->id, 
-                        $transactionLog->transaction_amount,
-                        $transactionLog->mpesa_request_timestamp
-                    );
-
-            $transactionLog->transaction_status= '30';
-            $transactionLog->transaction_response .= " Created utility payment transaction successfully.";
-            $transactionLog->save();
-
-            $eventLog->event_response .= " Created utility payment transaction successfully.";
-            $eventLog->event_status = '30';
-            $eventLog->save();
-
-        } catch (\Exception $e) 
-        {
-
-            $transactionLog->transaction_status= '25';
-            $transactionLog->transaction_response .= " Failed to created utility payment transaction. Error: "
-                                                        . $e->getMessage() . ".";
-            $transactionLog->save();
-
-            $eventLog->event_response .= " Failed to created utility payment transaction. Error: "
-                                                        . $e->getMessage() . ".";
             $eventLog->event_status = '25';
             $eventLog->save();
 

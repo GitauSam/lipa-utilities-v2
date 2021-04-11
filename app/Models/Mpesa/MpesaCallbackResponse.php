@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MpesaCallbackResponse extends Model
 {
-    use HasFactory; 
+    use HasFactory;
 
     protected $fillable = [
         'merchant_request_id',
