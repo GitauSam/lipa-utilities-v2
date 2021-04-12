@@ -110,7 +110,7 @@ class UtilityController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect()->back();
     }
 
     /**
@@ -279,6 +279,6 @@ class UtilityController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return redirect()->back();
     }
 }
