@@ -4,7 +4,9 @@ use App\Http\Controllers\Utility\Payment\MpesaController;
 use App\Http\Controllers\Utility\UserUtilityController;
 use App\Http\Controllers\Utility\UtilityController;
 use App\Http\Controllers\Utility\UtilityPaymentController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,17 +19,37 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::group(array('https'), function() {
-    Route::get('/', function () {
-        return view('welcome');
-    });
-
-    // Route::get('/welcome/beta', function () {
-    //     return view('welcome-beta');
-    // });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 
-    Route::middleware(['auth:sanctum', 'verified'])->group(function() {
+Route::middleware(['auth:sanctum'])->group(function() {
+
+    // Email verification routes
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email');
+    })->middleware('auth')->name('verification.notice');
+
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+
+        $request->fulfill();
+    
+        if (auth()->user()->hasRole(config('services.general.user_role'))) { 
+            return redirect()->route('utility.index'); 
+        }
+
+        return redirect()->route('admin.utility.index');
+
+    })->middleware(['signed'])->name('verification.verify');
+
+    Route::post('/email/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+    
+        return back()->with('message', 'Verification link sent!');
+    })->middleware(['throttle:6,1'])->name('verification.send');
+
+    Route::middleware(['verified'])->group(function() {
 
         // Utility routes
         Route::resource('utility', UserUtilityController::class);
@@ -59,4 +81,5 @@ use Illuminate\Support\Facades\Route;
         });
 
     });
-// });
+
+});
