@@ -15,7 +15,7 @@ ORDER BY created_at DESC
 LIMIT 15;
 
 SELECT *
-FROM lipautilitiestest.utility_payment_methods
+FROM lipautilitiestest.utility_payment_methods 
 ORDER BY created_at DESC
 LIMIT 15;
 

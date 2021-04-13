@@ -21,14 +21,14 @@ class UserSeeder extends Seeder
         //     'email' => 'tricky49er@gmail.com',
         //     'phone_number' => '254736423077',
         //     'password' => Hash::make('JohnDoe1234'),
+        //     'email_verified_at' => now()
         // ]);
 
         $userOne = User::create([
             'name' => 'John Doe',
             'email' => 'tricky49er@gmail.com',
             'phone_number' => '254746820652',
-            'password' => Hash::make('JohnDoe1234'),
-            'email_verified_at' => now()
+            'password' => Hash::make('JohnDoe1234')
         ]);
 
         $userOne->assignRole('user');

@@ -153,8 +153,8 @@ class UtilityPaymentActivator
         $eventLog->event_response = 'Create utility payment transaction started.';
         $eventLog->save();
         
-        // try
-        // {
+        try
+        {
 
             $eventLog->transaction_log_id =  $transactionLog->id;
             $eventLog->save();
@@ -177,8 +177,8 @@ class UtilityPaymentActivator
             $eventLog->event_status = '30';
             $eventLog->save();
 
-        // } catch (\Exception $e) 
-        // {
+        } catch (\Exception $e) 
+        {
 
             $transactionLog->transaction_status= '25';
             $transactionLog->transaction_response .= " Failed to create utility payment transaction. Error: "
@@ -190,7 +190,7 @@ class UtilityPaymentActivator
             $eventLog->event_status = '25';
             $eventLog->save();
 
-        // }
+        }
 
     }
 
