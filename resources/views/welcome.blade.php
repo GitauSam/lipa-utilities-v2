@@ -45,7 +45,7 @@
                     @auth
                         <x-settings-link />
                     @else
-                        <div class="signin pill">
+                        <div class="signin signin-lg pill">
                             <a href="{{ url('/register') }}">Sign Up</a>
                             <i class="fas fa-chevron-right"></i>
                         </div>

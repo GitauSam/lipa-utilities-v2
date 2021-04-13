@@ -419,21 +419,12 @@ html {
     .nav {
     }
 
-    .nav ul, .signin {
+    .nav ul, .signin-lg {
         display: none;
     }
 
     .logo {
         padding: 0 2.5rem;
-    }
-
-    .hamburger {
-        display: flex;
-        position: absolute;
-        top: 0;
-        right: 0;
-        margin-top: 25px;
-        margin-right: 25px;
     }
     /* navbar section end */
 
@@ -498,10 +489,133 @@ html {
     /* payment options end */
 
     /* about section start */
-    .about {
+    /* .about {
         grid-template-columns: repeat(1, 1fr);
         grid-template-rows: repeat(1, 1fr);
         margin: 0;
+        padding: 7rem 2.5rem;
+        gap: 4rem;
+    }
+
+    .about > *:first-child {
+        grid-column: 1 / span 1;
+        grid-row: 1 / span 1;
+    }
+
+    .about-card {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    } */
+    /* about section end */
+
+    /* start now section start */
+    /* .start-now {
+        height: 1000px;
+        padding: 0 2.5rem;
+        overflow: hidden;
+    }
+
+    .start-now .container {
+        flex-direction: column;
+        padding: 3rem 0 0 0;
+    }
+
+    .start-now-diagonal {
+        margin: 0;
+        transform: rotate(0deg);
+    }
+
+    .call-to-action {
+        padding: .75rem 0;
+    }
+
+    .benefits {
+        flex-direction: column;
+    } */
+    /* start now section end */
+    
+    /* footer section start */
+    .footer {
+        padding: 0 2.5rem;
+        margin-top: 150px;
+    }
+
+    .social {
+        gap: .5rem;
+    }
+    /* footer section end */
+}
+
+@media screen and (min-width: 768px) and (max-width: 1300px) {
+    /* banner section start */
+    .banner {
+        overflow: hidden;
+    }
+
+    .banner img {
+        width: 600px;
+        /* height: 600px; */
+        margin-top: 80px;
+    }
+
+    .banner-left h1 {
+        font-size: 36px;
+        line-height: 60px;
+    }
+
+    .banner-left h3 {
+        font-size: 24px;
+    }
+    /* banner section end */
+
+    /* services section start */
+    .service-cards {
+        flex-direction: column;
+    }
+    /* services section end */
+
+    /* payment options section start */
+    .payment-options {
+        height: 1200px;
+        overflow: hidden;
+    }
+
+    .payment-options-cards {
+        flex-direction: column;
+        padding: .5rem 0 0 0;
+    }
+
+    .payment-options-diagonal {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        transform: rotate(0deg);
+    }
+    /* payment options section end */
+}
+
+@media screen and (max-width:1300px) {
+    /* navbar section start */
+    .hamburger {
+        z-index: 5;
+        display: flex;
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-top: 25px;
+        margin-right: 25px;
+    }
+
+    .navbar {
+    }
+    /* navbar section end */
+
+    /* about setion start */
+    .about {
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+        margin: 0 auto;
         padding: 7rem 2.5rem;
         gap: 4rem;
     }
@@ -543,15 +657,4 @@ html {
         flex-direction: column;
     }
     /* start now section end */
-    
-    /* footer section start */
-    .footer {
-        padding: 0 2.5rem;
-        margin-top: 150px;
-    }
-
-    .social {
-        gap: .5rem;
-    }
-    /* footer section end */
 }

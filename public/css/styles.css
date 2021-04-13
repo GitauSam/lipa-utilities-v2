@@ -32,11 +32,6 @@ label {
     color: var(--primaryColor);
 }
 
-.hamburger {
-    display: none;
-    z-index: 4;
-}
-
 /* Rounded border */
 hr.rounded {
     border-top: 1px solid var(--primaryColor);
@@ -76,8 +71,7 @@ hr.rounded {
 
 .main-container-nav {
     height: 80px;
-    padding: 0 4rem 0 0;
-    margin: 0 auto 1.5rem;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     color: #fff;
@@ -704,11 +698,7 @@ main {
 
 /* Footer Section End */
 
-@media screen and (max-width: 768px) {
-
-    .hamburger {
-        display: flex;
-    }
+@media screen and (max-width: 1300px) {
 
     .circle1,
     .circle2 {
@@ -756,6 +746,10 @@ main {
 
     .nav-content-links a {
         font-size: 16px;
+    }
+
+    .main-container-nav {
+        display: none;
     }
 
     /*** Nav Section End ***/
