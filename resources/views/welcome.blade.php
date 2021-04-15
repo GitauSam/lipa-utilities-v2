@@ -23,8 +23,8 @@
     </head>
     <body class="antialiased">
         <!-- banner section -->
-        <section id="banner" class="banner">
-            <div x-data="{ open: false }" class="navbar">
+        <section x-data="{ open: false }" id="banner" class="banner">
+            <div class="navbar">
                 <nav class="nav container">
                     <div class="logo">
                         @auth
@@ -51,9 +51,33 @@
                         </div>
                     @endauth
                 </nav>
-                <div class="hamburger">
-                    <i class="fas fa-bars fa-2x"></i>
-                </div>
+                <button @click="open = ! open" 
+                    class="hamburger items-center w-12
+                            inline-flex justify-center
+                            rounded-md text-white 
+                            hover:text-gray-500 hover:bg-gray-200 
+                            focus:outline-none focus:bg-gray-100 focus:text-gray-500 
+                            transition duration-150 ease-in-out"
+                >
+                    <svg class="h-8 w-12" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div x-show="open" class="welcome-sub-nav">
+                <ul>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#start-now">Discover</a></li>
+                    @auth
+                        <li><a href="{{ route('profile.show') }}">Profile</a></li>
+                    @else
+                        <li><a href="{{ route('login') }}">Sign In</a></li>
+                        <li><a href="{{ route('register') }}">Sign Up</a></li>
+                    @endauth
+
+                </ul>
             </div>
             <div class="container">
                 <div class="banner-left">
@@ -63,9 +87,10 @@
                         via the internet
                     </h1>
                     <h3>
-                        Scores of users use lipa utilities features <br />
-                        to manage and pay for their utilities <br />
-                        online
+                        Scores of users use<br /> 
+                        lipa utilities features <br />
+                        to manage and pay for their<br /> 
+                        utilities online
                     </h3>
                     @auth
                     @else
@@ -101,13 +126,13 @@
                         </div>
                     </x-slot>
                     <x-slot name="description">
-                        No more dark <br />
-                        nights. Easily <br />
-                        pay for your postpaid <br />
-                        bills and buy tokens <br />
-                        to ensure your <br />
-                        environment is <br />
-                        always illuminated.
+                            No more dark <br />
+                            nights. Easily <br />
+                            pay for your postpaid <br />
+                            bills and buy tokens <br />
+                            to ensure your <br />
+                            environment is <br />
+                            always illuminated.
                     </x-slot>
                 </x-service-card>
                 <x-service-card>

@@ -29,7 +29,7 @@
 
         <div x-data="{ success_notif: true, failure_notif: true, open: false }" class="main-container">
             <div class="container main-container-nav logo">
-                <a class="hidden sm:flex" href="{{ url('/') }}">lipa utilities</a>
+                <a class="" href="{{ url('/') }}">lipa utilities</a>
                 <x-settings-link />
             </div>
             
