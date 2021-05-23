@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Utility\Payment;
 use App\Http\Controllers\Controller;
 use App\Http\Integrations\LipaNaMpesa;
 use App\Http\Requests\Utility\LipaNaMpesaRequest;
+use App\Jobs\Mpesa\SendLipaNaMpesaRequest;
 use App\Modules\Mpesa\MpesaActivator;
 use App\Modules\Utility\UtilityActivator;
 use Illuminate\Http\Request;
@@ -45,32 +46,18 @@ class MpesaController extends Controller
     public function executeLipaNaMpesaTransaction(LipaNaMpesaRequest $request)
     {
         $validated = $request->validated();
-        $s = $this
-                ->lipaNaMpesa
-                ->pay(
-                    $validated['amount'], 
-                    $validated['pbno'], 
-                    $validated['acc_ref'],
-                    $validated['utility_id']
-                );
-        
-        if ($s != null && $s == '30')
-        {
 
-            $status = "success_notif";
-            $message = "Payment transaction is successful. Awaiting user confirmation.";
+        SendLipaNaMpesaRequest::dispatchAfterResponse(
+            $validated['amount'], 
+            $validated['pbno'], 
+            $validated['acc_ref'],
+            $validated['utility_id']
+        );
 
-            return redirect()->route('utility.index')->with($status, $message);
+        $status = "success_notif";
+        $message = "Your payment transaction has been queued. Awaiting user confirmation.";
 
-        } else 
-        {
-
-            $status = "failure_notif";
-            $message = "Payment transaction could not be completed.";
-
-            return redirect()->route('utility.index')->with($status, $message);
-
-        }
+        return redirect()->route('utility.index')->with($status, $message);
     }
 
     public function receiveCallbackResponse(Request $request) 
