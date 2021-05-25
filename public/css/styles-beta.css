@@ -658,7 +658,7 @@ html {
     /* start now section end */
 }
 
-@media screen and (min-width:1300px) and (max-width:1600px) {
+@media screen and (min-width:1300px) and (max-width:1400px) {
     /* banner section start */
     .banner-left h1 {
         font-size: 2.5rem;
