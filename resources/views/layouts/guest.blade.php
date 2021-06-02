@@ -17,9 +17,15 @@
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+
+        <style>
+            .gradient {
+                background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
+            }
+        </style>
     </head>
     <body>
-        <div class="antialiased">
+        <div class="antialiased gradient">
             {{ $slot }}
         </div>
     </body>

@@ -20,6 +20,10 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
+    return view('landing-page-v3');
+});
+
+Route::get('/landing-page-beta', function () {
     return view('welcome');
 });
 

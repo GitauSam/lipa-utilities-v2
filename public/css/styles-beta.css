@@ -428,7 +428,7 @@ html {
 
 /* authentication card start */
 .authentication-card {
-    background: #6968AD;
+    background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
     -webkit-box-shadow: 3px 2px 5px 9px rgba(0,0,0,0.15);
     -moz-box-shadow: 3px 2px 5px 9px rgba(0,0,0,0.15);
     box-shadow: 3px 2px 5px 9px rgba(0,0,0,0.15);
