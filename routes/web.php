@@ -23,10 +23,9 @@ Route::get('/', function () {
     return view('landing-page-v3');
 });
 
-Route::get('/landing-page-beta', function () {
-    return view('welcome');
-});
-
+// Route::get('/landing-page-beta', function () {
+//     return view('welcome');
+// });
 
 Route::middleware(['auth:sanctum'])->group(function() {
 
@@ -54,6 +53,10 @@ Route::middleware(['auth:sanctum'])->group(function() {
     })->middleware(['throttle:6,1'])->name('verification.send');
 
     Route::middleware(['verified'])->group(function() {
+
+        Route::get('/dashboard-v2', function () {
+            return view('dashboard-v2');
+        });
 
         // Utility routes
         Route::resource('utility', UserUtilityController::class);

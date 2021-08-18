@@ -1,57 +1,68 @@
-<x-app-beta>
-    <x-slot name="links">
-        <div class="link">
-            <a href="{{ route('utility.index') }}">View Utilities</a>
-        </div>
-    </x-slot>
-    <x-slot name="pro">
-    </x-slot>
-    <x-slot name="games">
-        <div class="games">
-            <div class="status">
-                <h1>Create Utility</h1>
+<x-dashboard-v2-layout>
+    <div class="bg-white rounded-lg shadow sm:w-full sm:mx-auto sm:overflow-hidden">
+        <div class="px-4 py-8 sm:px-10">
+            <div class="relative mt-6">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-300">
+                    </div>
+                </div>
+                <div class="relative flex justify-center text-sm leading-5">
+                    <span class="px-2 text-gray-500 bg-white">
+                        Utility Information
+                    </span>
+                </div>
             </div>
-            @if ($errors->any())
+            <div class="mt-6">
+
+                @if ($errors->any())
                 <div>
                     <ul>
                         @foreach ($errors->all() as $error)
-                            <li>
-                                <div x-show="failure_notif" class="notification-card notification-card-failure" x-cloak>
-                                    <p>{{ $error }}</p>
-                                    <i @click="failure_notif = false" class="far fa-window-close"></i>
-                                </div>
-                            </li>
+                        <li>
+                            <div x-show="failure_notif" class="notification-card notification-card-failure" x-cloak>
+                                <p>{{ $error }}</p>
+                                <i @click="failure_notif = false" class="far fa-window-close"></i>
+                            </div>
+                        </li>
                         @endforeach
                     </ul>
                 </div>
-            @endif
-            <div class="cards">
-                <div class="card">
+                @endif
+                <div class="w-full space-y-6">
                     <form class="w-full" action="{{ route('utility.store') }}" method="POST">
                         @csrf
-                        <div class="status form-input">
-                            <label class="sm:mr-4 pt-2 text-lg font-semibold">Utility</label>
-                            <select name="user_utility" onchange="handleUtilityAccountNoInput(this)" required>
-                                <option value="">Select Utility</option>
-                                @foreach($utilities as $utility)
-                                    <option value="{{ \Illuminate\Support\Facades\Crypt::encryptString($utility->id) }}">{{ $utility->utility_name }}</option>
-                                @endforeach
-                            </select>
+                        <div class="w-full mb-6">
+                            <div class="relative">
+                                <label class="text-gray-700" for="animals">
+                                    Utility
+                                    <select id="animals" class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500" name="animals">
+                                        <option value="">Select Utility</option>
+                                        @foreach($utilities as $utility)
+                                        <option value="{{ \Illuminate\Support\Facades\Crypt::encryptString($utility->id) }}">{{ $utility->utility_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </label>
+
+                            </div>
                         </div>
-                        <div id="kenya_power_meter_number_container" style="display: none;" class="status form-input">
-                            <label class="sm:mr-4 text-lg font-semibold">Meter Number</label>
-                            <input id="kenya_power_meter_number_input" type="text" placeholder="Meter Number" name="kp_meter_number"/>
+                        <div id="kenya_power_meter_number_container" style="display: none;" class="w-full">
+                            <div class=" relative ">
+                                <input type="text" id="kenya_power_meter_number_input" class="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Meter Number" name="kp_meter_number" />
+                            </div>
                         </div>
-                        <div class="submit">
-                            <input type="submit" 
-                                    class="w-full bg-blue-300 rounded-2xl py-1 text-lg text-white font-semibold
-                                            hover:bg-blue-500 cursor-pointer" 
-                                    value="SAVE"/>
+                        <div>
+                            <span class="block w-full rounded-md shadow-sm">
+                                <input type="button" class="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg" value="SAVE" />
+                            </span>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </x-slot>
-</x-app-beta>
-    
+        <div class="px-4 py-6 border-t-2 border-gray-200 bg-gray-50 sm:px-10">
+            <p class="text-xs leading-5 text-gray-500">
+                The data is protected by lu-sec algorithm
+            </p>
+        </div>
+    </div>
+</x-dashboard-v2-layout>
