@@ -35,7 +35,12 @@
                             <div class="relative">
                                 <label class="text-gray-700" for="animals">
                                     Utility
-                                    <select id="animals" class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500" name="animals">
+                                    <select
+                                        class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500" 
+                                        name="user_utility"
+                                        onchange="handleUtilityAccountNoInput(this)" 
+                                        required
+                                    >
                                         <option value="">Select Utility</option>
                                         @foreach($utilities as $utility)
                                         <option value="{{ \Illuminate\Support\Facades\Crypt::encryptString($utility->id) }}">{{ $utility->utility_name }}</option>
@@ -45,14 +50,14 @@
 
                             </div>
                         </div>
-                        <div id="kenya_power_meter_number_container" style="display: none;" class="w-full">
-                            <div class=" relative ">
-                                <input type="text" id="kenya_power_meter_number_input" class="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Meter Number" name="kp_meter_number" />
+                        <div id="kenya_power_meter_number_container" style="display: none;" class="w-full mb-6">
+                            <div class="relative w-full">
+                                <input type="text" id="kenya_power_meter_number_input" class="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Meter Number" name="kp_meter_number" required />
                             </div>
                         </div>
                         <div>
                             <span class="block w-full rounded-md shadow-sm">
-                                <input type="button" class="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg" value="SAVE" />
+                                <input type="submit" class="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg" value="SAVE" />
                             </span>
                         </div>
                     </form>

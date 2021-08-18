@@ -7,8 +7,9 @@ use App\Modules\Utility\UtilityActivator;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class UserIndexUtility extends Component
+class UserIndexUtilityLegacy extends Component
 {
+
     use WithPagination;
 
     public function render()
@@ -24,8 +25,8 @@ class UserIndexUtility extends Component
 
         $userUtilities = $activator
                         ->getAllActiveUserUtilities($transactionLog)
-                        ->paginate(5);
+                        ->paginate(3);
 
-        return view('livewire.user-index-utility', ['userUtilities' => $userUtilities]);
+        return view('livewire.user-index-utility-legacy', ['userUtilities' => $userUtilities]);
     }
 }
