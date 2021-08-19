@@ -188,7 +188,7 @@
                                 @endif
                                 @auth
                                 <form method="post" action="{{ route('logout') }}">
-                                    @csrf
+                                    @csrf 
                                     <a class="w-full font-thin uppercase text-gray-500 dark:text-gray-200 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500" href="{{ route('logout') }}" onclick="event.preventDefault();
                                     this.closest('form').submit();">
                                         <span class="text-left">
