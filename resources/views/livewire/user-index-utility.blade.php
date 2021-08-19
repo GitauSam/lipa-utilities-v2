@@ -41,7 +41,7 @@
                 </a>
                 @endif
                 @endforeach
-                <div class="flex flex-col sm:flex-row sm:px-2 text-white text-center">
+                <div class="flex flex-col sm:flex-row gap-y-2 mx-2 sm:m-0 sm:px-2 text-white text-center">
                     <a class="model-btn bg-blue-600 hover:bg-blue-800 sm:flex-1 py-1 sm:mr-1 rounded" href="{{ route('utility.edit', \Illuminate\Support\Facades\Crypt::encryptString($u->id)) }}">
                         Edit
                     </a>
