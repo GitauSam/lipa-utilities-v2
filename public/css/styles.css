@@ -444,7 +444,6 @@ main {
 }
 
 .authentication-card {
-    color: var(--primaryColor);
     font-family: "Poppins", sans-serif;
     font-weight: bold;
 }

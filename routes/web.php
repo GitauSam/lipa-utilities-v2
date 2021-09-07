@@ -20,7 +20,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    return view('landing-page-v3');
+    return view('welcome');
 });
 
 // Route::get('/landing-page-beta', function () {
